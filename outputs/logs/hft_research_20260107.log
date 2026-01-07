@@ -1,0 +1,6 @@
+[2026-01-07 10:40:59 | QuantEngine | INFO] ============================================================
+[2026-01-07 10:40:59 | QuantEngine | INFO]  QUANT SYSTEM BOOTSTRAP: BTC_HFT_FASANARA
+[2026-01-07 10:40:59 | QuantEngine | INFO]  PROJECT ROOT: /content/drive/MyDrive/BTC_HFT_FASANARA
+[2026-01-07 10:40:59 | QuantEngine | INFO]  DATA SOURCE: /content/drive/MyDrive/Bitcoin_Strategy/btc_data.csv
+[2026-01-07 10:40:59 | QuantEngine | INFO] ============================================================
+[2026-01-07 10:40:59 | QuantEngine | INFO]  Initial System RAM: 1689.8 MB

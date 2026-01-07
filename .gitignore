@@ -1,0 +1,18 @@
+
+# Data
+data/
+*.parquet
+*.csv
+*.h5
+*.pkl
+
+# System / Cache
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+models/*.txt
+
+# Google Drive Specific (The Fix!)
+*.gdoc
+*.gsheet
+*.gslides
