@@ -1,0 +1,10 @@
+polars
+numpy
+pandas
+torch
+scikit-learn
+numba
+scipy
+matplotlib
+seaborn
+psutil

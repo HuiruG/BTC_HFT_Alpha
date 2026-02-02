@@ -1,4 +1,3 @@
-
 import polars as pl
 import numpy as np
 from alpha.base import BaseAlpha
@@ -27,21 +26,19 @@ class MicrostructureGuard:
             pl.col(signal_col).shift(1).alias("x_lag")
         ])
 
-        # 1. Rolling Autocorrelation
+        # Calculate Rolling Autocorrelation (rho)
         q = q.with_columns([
-            pl.when(pl.col("rho") <= 0)
-              .then(pl.lit(0.0))
-              .otherwise(-np.log(2) / pl.col("rho").clip(1e-4, 0.9999).log())
-              .alias("signal_half_life")
+            pl.rolling_corr(pl.col("x"), pl.col("x_lag"), window_size=window).alias("rho")
         ])
 
-        # 2. Calculate Half-Life (Bars)
+        # 1. Calculate Half-Life (Bars)
         # Use abs(rho) to handle oscillating mean reversion
         # Clip rho to [0.01, 0.99] to prevent div/0 or log(0)
         q = q.with_columns([
-            (
-                -np.log(2) / pl.col("rho").abs().clip(0.01, 0.99).log()
-            ).alias("signal_half_life")
+            pl.when(pl.col("rho").abs().is_null() | (pl.col("rho").abs() >= 1.0) | (pl.col("rho").abs() <= 0.01))
+              .then(pl.lit(0.0))
+              .otherwise(-np.log(2) / pl.col("rho").abs().clip(0.01, 0.99).log())
+              .alias("signal_half_life")
         ])
 
         return q.drop(["x", "x_lag", "rho"])
